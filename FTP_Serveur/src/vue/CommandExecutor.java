@@ -6,34 +6,50 @@ public class CommandExecutor {
 	
 	public static boolean userOk = false;
 	public static boolean pwOk = false;
+	public static boolean commandeExiste = false;
 	
 	public static void executeCommande(PrintStream ps, String commande) {
 		if(userOk && pwOk) {
-			// Changer de rÈpertoire. Un (..) permet de revenir au rÈpertoire supÈrieur
+			commandeExiste = false;
+			
+			// Changer de r√©pertoire. Un (..) permet de revenir au r√©pertoire sup√©rieur
 			if(commande.split(" ")[0].equals("cd")) (new CommandeCD(ps, commande)).execute();
-	
-			// TÈlÈcharger un fichier
+			
+			// T√©l√©charger un fichier
 			if(commande.split(" ")[0].equals("get")) (new CommandeGET(ps, commande)).execute();
 			
-			// Afficher la liste des fichiers et des dossiers du rÈpertoire courant
+			// Afficher la liste des fichiers et des dossiers du r√©pertoire courant
 			if(commande.split(" ")[0].equals("ls")) (new CommandeLS(ps, commande)).execute();
-		
-			// Afficher le rÈpertoire courant
+			
+			// Afficher le r√©pertoire courant
 			if(commande.split(" ")[0].equals("pwd")) (new CommandePWD(ps, commande)).execute();
 			
 			// Envoyer (uploader) un fichier
 			if(commande.split(" ")[0].equals("stor")) (new CommandeSTOR(ps, commande)).execute();
+			
+			// Si la commande re√ßue n'existe pas
+			if(!commandeExiste) ps.println("2 La commande n'existe pas");
 		}
 		else {
 			if(commande.split(" ")[0].equals("pass") || commande.split(" ")[0].equals("user")) {
-				// Le mot de passe pour l'authentification
-				if(commande.split(" ")[0].equals("pass")) (new CommandePASS(ps, commande)).execute();
-	
 				// Le login pour l'authentification
-				if(commande.split(" ")[0].equals("user")) (new CommandeUSER(ps, commande)).execute();
+				if(commande.split(" ")[0].equals("user")) {
+					if(!userOk)
+						(new CommandeUSER(ps, commande)).execute();
+					else
+						ps.println("2 Vous avez d√©j√† entr√© le login !");
+				}
+				
+				// Le mot de passe pour l'authentification
+				if(commande.split(" ")[0].equals("pass")) {
+					if(userOk)
+						(new CommandePASS(ps, commande)).execute();
+					else
+						ps.println("2 Vous n'avez pas entr√© le login !");
+				}
 			}
 			else
-				ps.println("2 Vous n'Ítes pas connectÈ !");
+				ps.println("2 Vous n'√™tes pas connect√© !");
 		}
 	}
 }

@@ -9,7 +9,7 @@ public class CommandeGET extends Commande {
 	}
 
 	public void execute() {
-		ps.println("La commande get n'est pas encore implémentée");
+		ps.println("2 La commande get n'est pas encore implémentée");
 	}
 
 }

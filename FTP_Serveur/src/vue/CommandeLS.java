@@ -9,7 +9,7 @@ public class CommandeLS extends Commande {
 	}
 
 	public void execute() {
-		ps.println("La commande ls n'est pas encore implémentée");
+		ps.println("2 La commande ls n'est pas encore implémentée");
 	}
 
 }

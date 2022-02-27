@@ -7,6 +7,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class MainServeur {
+	
+	public static String dossierCourant = "root";
 
 	public static void main(String[] args) throws Exception {
 		System.out.println("Le Serveur FTP");
@@ -14,7 +16,6 @@ public class MainServeur {
 		ServerSocket serveurFTP = new ServerSocket(2121);
 		Socket socket = serveurFTP.accept();
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		PrintStream ps = new PrintStream(socket.getOutputStream());
 		
 		ps.println("1 Bienvenue ! ");
@@ -22,12 +23,14 @@ public class MainServeur {
 		ps.println("0 Authentification : ");
 		
 		String commande = "";
+		BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		
-		// Attente de réception de commandes et leur exécution
+		// Attente de rÃ©ception de commandes et leur exÃ©cution
 		while(!(commande = br.readLine()).equals("bye")) {
 			System.out.println(">> " + commande);
 			CommandExecutor.executeCommande(ps, commande);
 		}
+		System.out.println("ArrÃªt de la communication avec le client FTP.");
 		
 		serveurFTP.close();
 		socket.close();

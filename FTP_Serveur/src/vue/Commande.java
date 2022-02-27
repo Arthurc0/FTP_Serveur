@@ -6,10 +6,12 @@ public abstract class Commande {
 	
 	protected PrintStream ps;
 	protected String commandeNom = "";
-	protected String [] commandeArgs ;
+	protected String [] commandeArgs;
 	
 	public Commande(PrintStream ps, String commandeStr) {
-		this.ps = ps ;
+		CommandExecutor.commandeExiste = true;
+		
+		this.ps = ps;
 		String [] args = commandeStr.split(" ");
 		commandeNom = args[0];
 		commandeArgs = new String[args.length-1];
