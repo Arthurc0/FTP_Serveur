@@ -8,8 +8,6 @@ import java.net.Socket;
 
 public class MainServeur {
 	
-	public static String dossierCourant = "root";
-
 	public static void main(String[] args) throws Exception {
 		System.out.println("Le Serveur FTP");
 		
