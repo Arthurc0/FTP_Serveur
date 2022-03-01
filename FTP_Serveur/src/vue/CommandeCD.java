@@ -9,7 +9,7 @@ public class CommandeCD extends Commande {
 		super(ps, commandeStr);
 	}
 	
-	// Supprime les caractères "/" en doublon et autour de la chaines
+	// Supprime les caractères "/" en doublon et autour de la chaine
 	private String trimSlashes(String str) {
 		// doublons
 	    str = str.replaceAll("\\/+", "/");
