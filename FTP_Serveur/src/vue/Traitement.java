@@ -8,6 +8,8 @@ public class Traitement {
 	public static String dossierCourant = "root";
 	public static String tmpChemin = "root";
 	
+	public static int numPortTransferts = 4000;
+	
 	public static boolean cheminExiste(PrintStream ps, String nomDossier) {
 		boolean existe = false;
 		tmpChemin = dossierCourant;

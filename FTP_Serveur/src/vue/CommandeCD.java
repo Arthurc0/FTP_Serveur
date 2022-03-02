@@ -1,6 +1,5 @@
 package vue;
 
-import java.io.File;
 import java.io.PrintStream;
 
 public class CommandeCD extends Commande {
