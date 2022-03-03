@@ -11,6 +11,22 @@ public class Traitement {
 	
 	public static int numPortTransferts = 4000;
 	
+	// Supprime les caractères "/" en doublon et autour de la chaine
+	public static String trimSlashes(String str) {
+		// doublons
+	    str = str.replaceAll("\\/+", "/");
+		
+		// "/" de fin
+		if(str.endsWith("/"))
+			str = str.substring(0, str.length()-1);
+		
+		// "/" de début
+		if(str.startsWith("/"))
+			str = str.substring(1, str.length());
+		
+		return str;
+	}
+	
 	public static boolean cheminExiste(PrintStream ps, String nomDossier) {
 		boolean existe = false;
 		tmpChemin = dossierCourant;

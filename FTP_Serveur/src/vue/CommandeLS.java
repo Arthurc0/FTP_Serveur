@@ -9,22 +9,6 @@ public class CommandeLS extends Commande {
 	public CommandeLS(PrintStream ps, String commandeStr) {
 		super(ps, commandeStr);
 	}
-
-	// Supprime les caractères "/" en doublon et autour de la chaine
-	private String trimSlashes(String str) {
-		// doublons
-	    str = str.replaceAll("\\/+", "/");
-		
-		// "/" de fin
-		if(str.endsWith("/"))
-			str = str.substring(0, str.length()-1);
-		
-		// "/" de début
-		if(str.startsWith("/"))
-			str = str.substring(1, str.length());
-		
-		return str;
-	}
 	
 	// Génere la chaine de LS
 	private String printLS(String chemin) {
@@ -45,7 +29,7 @@ public class CommandeLS extends Commande {
 	
 	public void execute() {
 		// Traiter l'argument s'il existe
-		if(commandeArgs.length > 0) commandeArgs[0] = trimSlashes(commandeArgs[0]);
+		if(commandeArgs.length > 0) commandeArgs[0] = Traitement.trimSlashes(commandeArgs[0]);
 		
 		// S'il n'y a aucun argument ou le premier argument est vide
 		if(commandeArgs.length == 0 || commandeArgs[0].length() == 0) {
