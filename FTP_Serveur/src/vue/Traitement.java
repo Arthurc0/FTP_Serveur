@@ -6,7 +6,8 @@ import java.io.PrintStream;
 public class Traitement {
 
 	public static String dossierCourant = "root";
-	public static String tmpChemin = "root";
+	public static String tmpChemin = "";
+	public static String dossierRacine = "root";
 	
 	public static int numPortTransferts = 4000;
 	
@@ -17,8 +18,8 @@ public class Traitement {
 		for(String s : nomDossier.split("/")) {
 			// Si la chaine est ".." (accès au répertoire supérieur)
 			if(s.equals("..")) {
-				if(tmpChemin.equals("root")) {
-					ps.println("2 Vous ne pouvez pas accéder à un répertoire supérieur au dossier racine");
+				if(tmpChemin.equals(dossierRacine)) {
+					ps.println("2 Vous ne pouvez pas accéder à un répertoire supérieur à votre dossier personnel");
 		    		existe = false;
 					break;
 				} else {

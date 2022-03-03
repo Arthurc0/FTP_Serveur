@@ -50,16 +50,10 @@ public class CommandeLS extends Commande {
 		// S'il n'y a aucun argument ou le premier argument est vide
 		if(commandeArgs.length == 0 || commandeArgs[0].length() == 0) {
     		ps.println(printLS(Traitement.dossierCourant));
-		}else {
-			boolean cheminExiste = false;
-			
-			cheminExiste = Traitement.cheminExiste(ps, commandeArgs[0]);
-			
-			if(cheminExiste) {
+		} else {
+			if(Traitement.cheminExiste(ps, commandeArgs[0])) {
 				ps.println(printLS(Traitement.tmpChemin));
 			}
 		}
-		
 	}
-
 }

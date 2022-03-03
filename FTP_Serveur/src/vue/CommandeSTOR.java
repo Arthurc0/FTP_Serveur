@@ -47,7 +47,7 @@ public class CommandeSTOR extends Commande {
 		} catch (FileNotFoundException e) {
 			ps.println("2 Le fichier " + commandeArgs[0] + " n'a pas pu être créé par le serveur");
 		} catch (IOException e) {
-			
+			ps.println("2 Une erreur s'est produite");
 		}
 	}
 
