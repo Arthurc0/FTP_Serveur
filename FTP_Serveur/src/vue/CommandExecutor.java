@@ -27,6 +27,12 @@ public class CommandExecutor {
 			// Envoyer (uploader) un fichier
 			if(commande.split(" ")[0].equals("stor")) (new CommandeSTOR(ps, commande)).execute();
 			
+			// Créer un nouveau dossier dans le répertoire courant s'il est inexistant
+			if(commande.split(" ")[0].equals("mkdir")) (new CommandeMKDIR(ps, commande)).execute();
+			
+			// Supprimer un dossier existant dans le répertoire courant s'il est vide
+			if(commande.split(" ")[0].equals("rmdir")) (new CommandeRMDIR(ps, commande)).execute();
+			
 			// Si la commande reçue n'existe pas
 			if(!commandeExiste) ps.println("2 La commande n'existe pas");
 		}

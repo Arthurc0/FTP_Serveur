@@ -11,7 +11,7 @@ public class CommandeUSER extends Commande {
 	
 	public void execute() {
 		if(commandeArgs.length != 1) {
-			ps.println("2 La commande USER attend 2 arguments : USER <nom>");
+			ps.println("2 La commande user attend 2 arguments : user <nom>");
 		} else {
 			File[] fichiers = new File(Traitement.dossierRacine).listFiles();
 			if(fichiers == null || fichiers.length == 0) {

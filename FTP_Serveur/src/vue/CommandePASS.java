@@ -14,7 +14,7 @@ public class CommandePASS extends Commande {
 
 	public void execute() {
 		if(commandeArgs.length != 1) {
-			ps.println("2 La commande PASS attend 2 arguments : PASS <mot_de_passe>");
+			ps.println("2 La commande pass attend 2 arguments : pass <mot_de_passe>");
 		} else {
 			// Si le dossier du client possède un fichier pw.txt
 			if(new File(Traitement.dossierRacine + "/pw.txt").exists() && new File(Traitement.dossierRacine + "/pw.txt").isFile()) {
