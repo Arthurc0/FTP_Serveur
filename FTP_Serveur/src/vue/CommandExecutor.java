@@ -7,7 +7,7 @@ public class CommandExecutor {
 	public static boolean commandeExiste = false;
 	
 	public static void executeCommande(PrintStream ps, String commande) {
-		Client client = MainServeur.clients.get(Integer.parseInt(Thread.currentThread().getName()));
+		Client client = Traitement.getClient();
 		
 		if(client.getUserOk() && client.getPwOk()) {
 			commandeExiste = false;

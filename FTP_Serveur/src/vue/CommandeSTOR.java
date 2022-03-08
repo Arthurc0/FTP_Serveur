@@ -16,13 +16,13 @@ public class CommandeSTOR extends Commande {
 	}
 
 	public void execute() {
-		Client client = MainServeur.clients.get(Integer.parseInt(Thread.currentThread().getName()));
+		Client client = Traitement.getClient();
 		
 		Traitement.numPortTransferts++;
 		
 		try {
 			// Création du fichier et récupération de son contenu
-			BufferedOutputStream contenuFichier = new BufferedOutputStream(new FileOutputStream(client.dossierCourant + "/" + commandeArgs[0]));
+			BufferedOutputStream contenuFichier = new BufferedOutputStream(new FileOutputStream(client.getDossierCourant() + "/" + commandeArgs[0]));
 			
 			ServerSocket serveurSTOR = new ServerSocket(Traitement.numPortTransferts);
 			
@@ -31,7 +31,7 @@ public class CommandeSTOR extends Commande {
 			
 			Socket socketSTOR = serveurSTOR.accept();
 			
-			byte[] buffer  = new byte[4*1024];
+			byte[] buffer = new byte[4*1024];
 			
 			InputStream contenuSocket = socketSTOR.getInputStream();
 			int nbOctetsLus = -1;
@@ -45,12 +45,11 @@ public class CommandeSTOR extends Commande {
 			socketSTOR.close();
 			serveurSTOR.close();
 			
-			System.out.println("Le fichier " + commandeArgs[0] + " a été créé dans le dossier " + client.dossierCourant + " par le client");
+			System.out.println("Le fichier " + commandeArgs[0] + " a été créé dans le dossier " + client.getDossierCourant() + " par le client");
 		} catch (FileNotFoundException e) {
 			ps.println("2 Le fichier " + commandeArgs[0] + " n'a pas pu être créé par le serveur");
 		} catch (IOException e) {
 			ps.println("2 Une erreur s'est produite");
 		}
 	}
-
 }

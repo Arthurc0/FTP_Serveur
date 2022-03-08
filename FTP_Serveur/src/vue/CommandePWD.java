@@ -9,9 +9,7 @@ public class CommandePWD extends Commande {
 	}
 
 	public void execute() {
-		Client client = MainServeur.clients.get(Integer.parseInt(Thread.currentThread().getName()));
-		
-		ps.println("0 " + client.dossierCourant);
+		Client client = Traitement.getClient();
+		ps.println("0 " + client.getDossierCourant());
 	}
-
 }

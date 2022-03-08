@@ -16,13 +16,13 @@ public class CommandeGET extends Commande {
 	}
 
 	public void execute() {
-		Client client = MainServeur.clients.get(Integer.parseInt(Thread.currentThread().getName()));
+		Client client = Traitement.getClient();
 		
 		Traitement.numPortTransferts++;
 		
 		try {
 			// Récupération du contenu du fichier
-			BufferedInputStream contenuFichier = new BufferedInputStream(new FileInputStream(client.dossierCourant + "/" + commandeArgs[0]));
+			BufferedInputStream contenuFichier = new BufferedInputStream(new FileInputStream(client.getDossierCourant() + "/" + commandeArgs[0]));
 			
 			ServerSocket serveurSTOR = new ServerSocket(Traitement.numPortTransferts);
 			

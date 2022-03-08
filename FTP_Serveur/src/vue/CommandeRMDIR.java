@@ -10,7 +10,7 @@ public class CommandeRMDIR extends Commande {
 	}
 	
 	public void execute() {
-		Client client = MainServeur.clients.get(Integer.parseInt(Thread.currentThread().getName()));
+		Client client = Traitement.getClient();
 		
 		if(commandeArgs.length != 1) {
 			ps.println("2 La commande rmdir attend 2 arguments : rmdir <dossier>");
@@ -18,8 +18,8 @@ public class CommandeRMDIR extends Commande {
 			commandeArgs[0] = Traitement.trimSlashes(commandeArgs[0]);
 			
 			if(Traitement.verifDossier(ps, commandeArgs[0], 0)) {
-				new File(client.tmpChemin).delete();
-				ps.println("0 Le dossier " + new File(client.tmpChemin).getName() + " a été supprimé");
+				new File(client.getTmpChemin()).delete();
+				ps.println("0 Le dossier " + new File(client.getTmpChemin()).getName() + " a été supprimé");
 			}
 		}
 	}

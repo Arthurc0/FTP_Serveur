@@ -27,17 +27,17 @@ public class CommandeLS extends Commande {
 	}
 	
 	public void execute() {
-		Client client = MainServeur.clients.get(Integer.parseInt(Thread.currentThread().getName()));
+		Client client = Traitement.getClient();
 		
 		// Traiter l'argument s'il existe
 		if(commandeArgs.length > 0) commandeArgs[0] = Traitement.trimSlashes(commandeArgs[0]);
 		
 		// S'il n'y a aucun argument ou le premier argument est vide
 		if(commandeArgs.length == 0 || commandeArgs[0].length() == 0) {
-    		ps.println(printLS(client.dossierCourant));
+    		ps.println(printLS(client.getDossierCourant()));
 		} else {
 			if(Traitement.cheminExiste(ps, commandeArgs[0])) {
-				ps.println(printLS(client.tmpChemin));
+				ps.println(printLS(client.getTmpChemin()));
 			}
 		}
 	}

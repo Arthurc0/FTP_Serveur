@@ -10,7 +10,7 @@ public class CommandeMKDIR extends Commande {
 	}
 	
 	public void execute() {
-		Client client = MainServeur.clients.get(Integer.parseInt(Thread.currentThread().getName()));
+		Client client = Traitement.getClient();
 		
 		if(commandeArgs.length != 1) {
 			ps.println("2 La commande mkdir attend 2 arguments : mkdir <dossier>");
@@ -19,8 +19,8 @@ public class CommandeMKDIR extends Commande {
 			
 			// Si le nom du dossier demandé existe déjà
 			if(Traitement.verifDossier(ps, commandeArgs[0], 1)) {
-				new File(client.tmpChemin).mkdir();
-				ps.println("0 Le dossier " + new File(client.tmpChemin).getName() + " a été créé");
+				new File(client.getTmpChemin()).mkdir();
+				ps.println("0 Le dossier " + new File(client.getTmpChemin()).getName() + " a été créé");
 			}
 		}
 	}
