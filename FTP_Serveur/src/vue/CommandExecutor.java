@@ -4,12 +4,12 @@ import java.io.PrintStream;
 
 public class CommandExecutor {
 	
-	public static boolean userOk = false;
-	public static boolean pwOk = false;
 	public static boolean commandeExiste = false;
 	
 	public static void executeCommande(PrintStream ps, String commande) {
-		if(userOk && pwOk) {
+		Client client = MainServeur.clients.get(Integer.parseInt(Thread.currentThread().getName()));
+		
+		if(client.getUserOk() && client.getPwOk()) {
 			commandeExiste = false;
 			
 			// Changer de répertoire. Un (..) permet de revenir au répertoire supérieur
@@ -40,7 +40,7 @@ public class CommandExecutor {
 			if(commande.split(" ")[0].equals("pass") || commande.split(" ")[0].equals("user")) {
 				// Le login pour l'authentification
 				if(commande.split(" ")[0].equals("user")) {
-					if(!userOk)
+					if(!client.getUserOk())
 						(new CommandeUSER(ps, commande)).execute();
 					else
 						ps.println("2 Vous avez déjà entré le login !");
@@ -48,7 +48,7 @@ public class CommandExecutor {
 				
 				// Le mot de passe pour l'authentification
 				if(commande.split(" ")[0].equals("pass")) {
-					if(userOk)
+					if(client.getUserOk())
 						(new CommandePASS(ps, commande)).execute();
 					else
 						ps.println("2 Vous n'avez pas entré le login !");

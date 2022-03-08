@@ -4,8 +4,7 @@ import java.io.File;
 import java.io.PrintStream;
 
 public class CommandeLS extends Commande {
-	
-	
+
 	public CommandeLS(PrintStream ps, String commandeStr) {
 		super(ps, commandeStr);
 	}
@@ -28,15 +27,17 @@ public class CommandeLS extends Commande {
 	}
 	
 	public void execute() {
+		Client client = MainServeur.clients.get(Integer.parseInt(Thread.currentThread().getName()));
+		
 		// Traiter l'argument s'il existe
 		if(commandeArgs.length > 0) commandeArgs[0] = Traitement.trimSlashes(commandeArgs[0]);
 		
 		// S'il n'y a aucun argument ou le premier argument est vide
 		if(commandeArgs.length == 0 || commandeArgs[0].length() == 0) {
-    		ps.println(printLS(Traitement.dossierCourant));
+    		ps.println(printLS(client.dossierCourant));
 		} else {
 			if(Traitement.cheminExiste(ps, commandeArgs[0])) {
-				ps.println(printLS(Traitement.tmpChemin));
+				ps.println(printLS(client.tmpChemin));
 			}
 		}
 	}

@@ -2,14 +2,15 @@ package vue;
 
 import java.io.File;
 import java.io.PrintStream;
+import java.util.HashMap;
 
 public class Traitement {
 
-	public static String dossierCourant = "root";
-	public static String tmpChemin = "";
-	public static String dossierRacine = "root";
+	//Gestion du multi-clients
+	private static Client client = MainServeur.clients.get(Integer.parseInt(Thread.currentThread().getName()));
 	
 	public static int numPortTransferts = 4000;
+	//public static HashMap<Integer, Client> clients = new HashMap<Integer, Client>();
 	
 	// Supprime les caractères "/" en doublon et autour de la chaine
 	public static String trimSlashes(String str) {
@@ -30,17 +31,17 @@ public class Traitement {
 	// Indique si le chemin existe (pour les commandes CD et LS)
 	public static boolean cheminExiste(PrintStream ps, String chemin) {
 		boolean existe = false;
-		tmpChemin = dossierCourant;
+		client.tmpChemin = client.dossierCourant;
 		
 		for(String s : chemin.split("/")) {
 			// Si la chaine est ".." (accès au répertoire supérieur)
 			if(s.equals("..")) {
-				if(tmpChemin.equals(dossierRacine)) {
+				if(client.tmpChemin.equals(client.dossierRacine)) {
 					ps.println("2 Vous ne pouvez pas accéder à un répertoire supérieur à votre dossier personnel");
 		    		existe = false;
 					break;
 				} else {
-					tmpChemin = tmpChemin.substring(0, tmpChemin.lastIndexOf("/"));
+					client.tmpChemin = client.tmpChemin.substring(0, client.tmpChemin.lastIndexOf("/"));
 					existe = true;
 				}
 			}
@@ -50,15 +51,15 @@ public class Traitement {
 			}
 			// Si la chaine est un nom de dossier
 			else {
-				File[] fichiers = new File(tmpChemin).listFiles();
+				File[] fichiers = new File(client.tmpChemin).listFiles();
 				
 				if(fichiers == null || fichiers.length == 0) {
-		    		ps.println("2 Le dossier " + new File(tmpChemin).getName() + " ne contient aucun dossier");
+		    		ps.println("2 Le dossier " + new File(client.tmpChemin).getName() + " ne contient aucun dossier");
 		    		existe = false;
 		    		break;
 				} else {
-					tmpChemin += "/" + s;
-					if(new File(tmpChemin).exists() && new File(tmpChemin).isDirectory()) {
+					client.tmpChemin += "/" + s;
+					if(new File(client.tmpChemin).exists() && new File(client.tmpChemin).isDirectory()) {
 						existe = true;
 					} else {
 						ps.println("2 Le dossier " + s + " n'existe pas");
@@ -81,7 +82,7 @@ public class Traitement {
 		boolean verifCreer = false;
 		boolean verifSupprimer = false;
 		
-		tmpChemin = dossierCourant;
+		client.tmpChemin = client.dossierCourant;
 		
 		String[] chemin = dossiers.split("/");
 		int positionDossier = 0;
@@ -96,13 +97,13 @@ public class Traitement {
 					verifSupprimer = false;
 					break;
 				} else {
-					if(tmpChemin.equals(dossierRacine)) {
+					if(client.tmpChemin.equals(client.dossierRacine)) {
 						ps.println("2 Vous ne pouvez pas accéder à un répertoire supérieur à votre dossier personnel");
 						verifCreer = false;
 						verifSupprimer = false;
 						break;
 					} else {
-						tmpChemin = tmpChemin.substring(0, tmpChemin.lastIndexOf("/"));
+						client.tmpChemin = client.tmpChemin.substring(0, client.tmpChemin.lastIndexOf("/"));
 						positionDossier++;
 					}
 				}
@@ -119,18 +120,18 @@ public class Traitement {
 			else {
 				// Si le nom de dossier n'est pas le dernier du chemin
 				if(positionDossier != chemin.length - 1) {
-					File[] fichiers = new File(tmpChemin).listFiles();
+					File[] fichiers = new File(client.tmpChemin).listFiles();
 					
 					if(fichiers == null || fichiers.length == 0) {
-			    		ps.println("2 Le dossier " + new File(tmpChemin).getName() + " ne contient aucun dossier");
+			    		ps.println("2 Le dossier " + new File(client.tmpChemin).getName() + " ne contient aucun dossier");
 			    		verifCreer = false;
 						verifSupprimer = false;
 			    		break;
 					} else {
-						tmpChemin += "/" + s;
+						client.tmpChemin += "/" + s;
 						positionDossier++;
 						// Si le dossier n'existe pas
-						if(!new File(tmpChemin).exists() || !new File(tmpChemin).isDirectory()) {
+						if(!new File(client.tmpChemin).exists() || !new File(client.tmpChemin).isDirectory()) {
 							ps.println("2 Le dossier " + s + " n'existe pas");
 							verifCreer = false;
 							verifSupprimer = false;
@@ -138,8 +139,8 @@ public class Traitement {
 						}
 					}
 				} else {
-					tmpChemin += "/" + s;
-					File dossier = new File(tmpChemin);
+					client.tmpChemin += "/" + s;
+					File dossier = new File(client.tmpChemin);
 					
 					if(methode == 1) {
 						if(dossier.exists()) {

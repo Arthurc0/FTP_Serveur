@@ -10,17 +10,19 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class CommandeSTOR extends Commande {
-	
+
 	public CommandeSTOR(PrintStream ps, String commandeStr) {
 		super(ps, commandeStr);
 	}
 
 	public void execute() {
+		Client client = MainServeur.clients.get(Integer.parseInt(Thread.currentThread().getName()));
+		
 		Traitement.numPortTransferts++;
 		
 		try {
 			// Création du fichier et récupération de son contenu
-			BufferedOutputStream contenuFichier = new BufferedOutputStream(new FileOutputStream(Traitement.dossierCourant + "/" + commandeArgs[0]));
+			BufferedOutputStream contenuFichier = new BufferedOutputStream(new FileOutputStream(client.dossierCourant + "/" + commandeArgs[0]));
 			
 			ServerSocket serveurSTOR = new ServerSocket(Traitement.numPortTransferts);
 			
@@ -43,7 +45,7 @@ public class CommandeSTOR extends Commande {
 			socketSTOR.close();
 			serveurSTOR.close();
 			
-			System.out.println("Le fichier " + commandeArgs[0] + " a été créé dans le dossier " + Traitement.dossierCourant + " par le client");
+			System.out.println("Le fichier " + commandeArgs[0] + " a été créé dans le dossier " + client.dossierCourant + " par le client");
 		} catch (FileNotFoundException e) {
 			ps.println("2 Le fichier " + commandeArgs[0] + " n'a pas pu être créé par le serveur");
 		} catch (IOException e) {

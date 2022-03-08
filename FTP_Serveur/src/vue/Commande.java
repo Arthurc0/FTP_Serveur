@@ -3,7 +3,7 @@ package vue;
 import java.io.PrintStream;
 
 public abstract class Commande {
-	
+		
 	protected PrintStream ps;
 	protected String commandeNom = "";
 	protected String [] commandeArgs;
