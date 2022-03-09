@@ -16,7 +16,6 @@ public class MainServeur {
 		ServerSocket serveurFTP = new ServerSocket(2121);
 		
 		while(true) {
-			System.out.println("Attente de connexion d'un client...");
 			Socket socket = serveurFTP.accept();
 			
 			Client client = new Client();
@@ -24,7 +23,7 @@ public class MainServeur {
 			
 			clients.put(client.getId(), client);
 			
-			System.out.println("Client n°" + client.getId() + " connecté");
+			System.out.println("-------> Client n°" + client.getId() + " connecté");
 			
 			Thread clientTh = new Thread(new ClientThread());
 			clientTh.start();
