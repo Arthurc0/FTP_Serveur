@@ -27,6 +27,7 @@ public class CommandeUSER extends Commande {
 					client.setDossierCourant(client.getDossierRacine());
 					ps.println("0 Commande user OK");
 				} else {
+					client.setUser("");
 					ps.println("2 Le user " + commandeArgs[0] + " n'existe pas");
 				}
 			}

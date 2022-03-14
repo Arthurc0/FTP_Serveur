@@ -18,9 +18,9 @@ public class CommandeLS extends Commande {
 		
 		for(File f : fichiers) {
 			if(f.isFile())
-				str = str + "   (f)" + f.getName();
+				str = str + " f-" + f.getName();
 			else
-				str = str + "   (d)" + f.getName();
+				str = str + " d-" + f.getName();
 		}
 		
 		return str;

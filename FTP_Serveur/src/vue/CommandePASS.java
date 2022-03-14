@@ -30,7 +30,11 @@ public class CommandePASS extends Commande {
 						ps.println("1 Commande pass OK");
 						ps.println("0 Vous êtes bien connecté sur notre serveur");
 					} else {
-						ps.println("2 Le mode de passe est faux");
+						client.setUser("");
+						client.setUserOk(false);
+						client.setDossierCourant(client.getDossierCourant().substring(0, client.getDossierCourant().length() - (client.getDossierCourant().length() - client.getDossierCourant().lastIndexOf("/"))));
+						client.setDossierRacine(client.getDossierCourant());
+						ps.println("2 Le mot de passe est faux");
 					}
 				} catch(Exception e) {
 					ps.println("2 Une erreur s'est produite");
